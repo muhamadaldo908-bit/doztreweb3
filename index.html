@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en" class="scroll-smooth dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,17 +9,114 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
+        /* General Styles */
         body {
             font-family: 'Inter', sans-serif;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* Dark Mode Styles (Default) */
+        .dark body {
             background-color: #0F172A; /* Slate 900 */
             color: #F1F5F9; /* Slate 100 */
         }
-        .card {
+        .dark .card {
             background-color: #1E293B; /* Slate 800 */
             border: 1px solid #334155; /* Slate 700 */
-            border-radius: 0.75rem;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
+        .dark header {
+            background-color: #0F172A/80;
+            border-bottom-color: #334155; /* Slate 700 */
+        }
+        .dark #mobile-menu a:hover {
+            background-color: #1E293B; /* Slate 800 */
+        }
+        .dark .nav-link {
+            color: #D1D5DB; /* Gray 300 */
+        }
+        .dark .nav-link:hover {
+            color: white;
+        }
+        .dark footer {
+             background-color: #0F172A;
+             border-top-color: #334155; /* Slate 700 */
+        }
+        .dark .btn-secondary {
+            background-color: #334155; /* Slate 700 */
+            color: #F1F5F9; /* Slate 100 */
+        }
+        .dark .btn-secondary:hover {
+            background-color: #475569; /* Slate 600 */
+        }
+        .dark .section-title {
+            color: white;
+        }
+        .dark .details-list {
+            border-top-color: #475569;
+        }
+
+        /* Light Mode Styles */
+        .light body {
+            background-color: #F1F5F9; /* Slate 100 */
+            color: #0F172A; /* Slate 900 */
+        }
+        .light .card {
+            background-color: #FFFFFF;
+            border: 1px solid #E2E8F0; /* Slate 200 */
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+        .light header {
+            background-color: #FFFFFF/80;
+            border-bottom-color: #E2E8F0; /* Slate 200 */
+        }
+        .light #mobile-menu a:hover {
+            background-color: #F1F5F9; /* Slate 100 */
+        }
+        .light .nav-link {
+            color: #4B5563; /* Gray 600 */
+        }
+        .light .nav-link:hover {
+            color: #111827; /* Gray 900 */
+        }
+        .light .text-white, .light .text-slate-300, .light .text-blue-400 {
+           color: #1E293B; /* Slate 800 */
+        }
+         .light .dark\:text-white {
+            color: #1E293B !important;
+        }
+        .light .text-2xl.font-bold.text-white a {
+            color: #1E293B; /* Ensure logo text is dark in light mode */
+        }
+        .light footer {
+            background-color: #FFFFFF;
+            border-top-color: #E2E8F0; /* Slate 200 */
+        }
+        .light .btn-secondary {
+            background-color: #E2E8F0; /* Slate 200 */
+            color: #1E293B; /* Slate 800 */
+        }
+        .light .btn-secondary:hover {
+            background-color: #CBD5E1; /* Slate 300 */
+        }
+        .light .section-title {
+            color: #1E293B;
+        }
+        .light .details-list {
+            border-top-color: #E2E8F0;
+        }
+        .light input[type="text"] {
+            background-color: #F8FAFC; /* Slate 50 */
+            color: #0F172A;
+            border-color: #CBD5E1; /* Slate 300 */
+        }
+        .light h3, .light h4, .light p {
+             color: #1E293B;
+        }
+        .light .hero-text-light {
+            color: white !important;
+        }
+
+
         .card:hover {
             transform: translateY(-5px);
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
@@ -31,14 +128,6 @@
         }
         .btn-primary:hover {
             background-color: #2563EB; /* Blue 600 */
-        }
-        .btn-secondary {
-             background-color: #334155; /* Slate 700 */
-             color: #F1F5F9; /* Slate 100 */
-             transition: background-color 0.3s ease;
-        }
-        .btn-secondary:hover {
-             background-color: #475569; /* Slate 600 */
         }
         .section-title {
             border-left: 4px solid #3B82F6; /* Blue 500 */
@@ -68,7 +157,7 @@
             transition: max-height 0.5s ease-in-out;
         }
         .details-list.open {
-             max-height: 500px; /* Adjust as needed */
+            max-height: 500px; /* Adjust as needed */
         }
         .arrow-icon {
             transition: transform 0.3s ease;
@@ -81,42 +170,48 @@
 <body class="antialiased">
 
     <!-- Header & Navigation -->
-    <header class="bg-slate-900/80 backdrop-blur-sm sticky top-0 z-50 border-b border-slate-700">
+    <header class="backdrop-blur-sm sticky top-0 z-50">
         <div class="container mx-auto px-4">
             <div class="flex justify-between items-center py-4">
                 <div class="text-2xl font-bold text-white">
                     <a href="#">Doztre<span class="text-blue-500">.id</span></a>
                 </div>
-                <nav class="hidden md:flex space-x-8">
-                    <a href="#info" class="nav-link text-slate-300 hover:text-white">Information</a>
-                    <a href="#produk" class="nav-link text-slate-300 hover:text-white">Products</a>
-                    <a href="#pembayaran" class="nav-link text-slate-300 hover:text-white">Payment</a>
-                    <a href="#mengapa-kami" class="nav-link text-slate-300 hover:text-white">Why Us</a>
-                </nav>
-                <button id="mobile-menu-button" class="md:hidden text-white">
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
-                </button>
+                <div class="flex items-center space-x-8">
+                    <nav class="hidden md:flex space-x-8">
+                        <a href="#info" class="nav-link">Information</a>
+                        <a href="#produk" class="nav-link">Products</a>
+                        <a href="#pembayaran" class="nav-link">Payment</a>
+                        <a href="#mengapa-kami" class="nav-link">Why Us</a>
+                    </nav>
+                    <button id="theme-toggle" class="text-slate-300 hover:text-white">
+                        <svg id="theme-toggle-dark-icon" class="w-6 h-6 hidden" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
+                        <svg id="theme-toggle-light-icon" class="w-6 h-6 hidden" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 100 2h1z" fill-rule="evenodd" clip-rule="evenodd"></path></svg>
+                    </button>
+                    <button id="mobile-menu-button" class="md:hidden text-white">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                    </button>
+                </div>
             </div>
         </div>
         <!-- Mobile Menu -->
         <div id="mobile-menu" class="hidden md:hidden">
-            <a href="#info" class="block py-2 px-4 text-sm text-slate-300 hover:bg-slate-800">Information</a>
-            <a href="#produk" class="block py-2 px-4 text-sm text-slate-300 hover:bg-slate-800">Products</a>
-            <a href="#pembayaran" class="block py-2 px-4 text-sm text-slate-300 hover:bg-slate-800">Payment</a>
-            <a href="#mengapa-kami" class="block py-2 px-4 text-sm text-slate-300 hover:bg-slate-800">Why Us</a>
+            <a href="#info" class="block py-2 px-4 text-sm text-slate-300">Information</a>
+            <a href="#produk" class="block py-2 px-4 text-sm text-slate-300">Products</a>
+            <a href="#pembayaran" class="block py-2 px-4 text-sm text-slate-300">Payment</a>
+            <a href="#mengapa-kami" class="block py-2 px-4 text-sm text-slate-300">Why Us</a>
         </div>
     </header>
 
     <main class="container mx-auto px-4 py-8 md:py-16">
 
         <!-- Hero Section -->
-        <section id="home" class="text-center rounded-xl overflow-hidden min-h-[400px] flex items-center justify-center relative bg-cover bg-center" style="background-image: url('Gambar WhatsApp 2025-09-15 pukul 00.36.36_20a02d24.jpg');">
+        <section id="home" class="text-center rounded-xl overflow-hidden min-h-[400px] flex items-center justify-center relative bg-cover bg-center" style="background-image: url('https://placehold.co/1200x400/0F172A/FFFFFF?text=Doztre.id');">
             <div class="absolute inset-0 bg-black/60"></div>
             <div class="relative z-10 p-4">
-                <h1 class="text-4xl md:text-6xl font-extrabold text-white leading-tight">
+                <h1 class="text-4xl md:text-6xl font-extrabold text-white leading-tight hero-text-light">
                     Your Digital Needs Solution
                 </h1>
-                <p class="mt-4 text-lg md:text-xl font-medium text-slate-300 max-w-2xl mx-auto">
+                <p class="mt-4 text-lg md:text-xl font-medium text-slate-300 max-w-2xl mx-auto hero-text-light">
                     KYC Service, Telegram Products, Mailbox Products
                 </p>
             </div>
@@ -126,18 +221,18 @@
         <section id="telegram-links" class="py-16 md:py-24">
              <h2 class="section-title text-3xl font-bold mb-8">Connect With Us</h2>
              <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                <a href="https://t.me/doztre" target="_blank" class="btn-primary rounded-lg p-4 text-center font-semibold text-lg flex items-center justify-center space-x-2">
-                    <span>My Telegram</span>
-                </a>
-                <a href="https://t.me/doztrereview" target="_blank" class="btn-secondary rounded-lg p-4 text-center font-semibold text-lg flex items-center justify-center space-x-2">
-                    <span>Reviews Doztre</span>
-                </a>
-                <a href="https://t.me/cryptoclays0" target="_blank" class="btn-secondary rounded-lg p-4 text-center font-semibold text-lg flex items-center justify-center space-x-2">
-                    <span>Doztre Chat</span>
-                </a>
-                 <a href="https://t.me/claysresource" target="_blank" class="btn-secondary rounded-lg p-4 text-center font-semibold text-lg flex items-center justify-center space-x-2">
-                    <span>Resource Doztre</span>
-                </a>
+                 <a href="https://t.me/doztre" target="_blank" class="btn-primary rounded-lg p-4 text-center font-semibold text-lg flex items-center justify-center space-x-2">
+                     <span>My Telegram</span>
+                 </a>
+                 <a href="https://t.me/doztrereview" target="_blank" class="btn-secondary rounded-lg p-4 text-center font-semibold text-lg flex items-center justify-center space-x-2">
+                     <span>Reviews Doztre</span>
+                 </a>
+                 <a href="https://t.me/cryptoclays0" target="_blank" class="btn-secondary rounded-lg p-4 text-center font-semibold text-lg flex items-center justify-center space-x-2">
+                     <span>Doztre Chat</span>
+                 </a>
+                  <a href="https://t.me/claysresource" target="_blank" class="btn-secondary rounded-lg p-4 text-center font-semibold text-lg flex items-center justify-center space-x-2">
+                     <span>Resource Doztre</span>
+                 </a>
              </div>
         </section>
 
@@ -178,11 +273,11 @@
                 <!-- Exchange Product Card -->
                 <div class="card p-6">
                     <div class="product-header cursor-pointer flex justify-between items-center">
-                        <h3 class="text-2xl font-bold text-blue-400">Exchange & KYC Products</h3>
+                        <h3 class="text-2xl font-bold text-blue-500">Exchange & KYC Products</h3>
                         <svg class="w-6 h-6 arrow-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                     </div>
                     <div class="details-list">
-                        <ul class="mt-4 pt-4 border-t border-slate-600 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 text-slate-300">
+                        <ul class="mt-4 pt-4 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
                             <li>Bybit</li><li>OKX</li><li>BingX</li><li>Bitget</li><li>Mexc</li><li>Kucoin</li><li>BC Game</li><li>Github</li><li>Bank USD</li><li>ID Card</li><li>Bank Payment</li><li>Buildpad</li><li class="italic">And more...</li>
                         </ul>
                     </div>
@@ -191,13 +286,13 @@
                 <!-- Mailbox Product Card -->
                 <div class="card p-6">
                     <div class="product-header cursor-pointer flex justify-between items-center">
-                         <h3 class="text-2xl font-bold text-blue-400">Mailbox Products</h3>
+                         <h3 class="text-2xl font-bold text-blue-500">Mailbox Products</h3>
                          <svg class="w-6 h-6 arrow-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                     </div>
                      <div class="details-list">
-                        <div class="mt-4 pt-4 border-t border-slate-600 space-y-4 text-slate-300">
+                        <div class="mt-4 pt-4 space-y-4">
                             <div>
-                                <h4 class="font-bold text-lg text-white">Gmail</h4>
+                                <h4 class="font-bold text-lg">Gmail</h4>
                                 <ul class="list-disc list-inside ml-2 mt-1 space-y-1 text-sm">
                                     <li>Price: $0.8 / 1 account</li>
                                     <li>Stock: 100+ available</li>
@@ -206,7 +301,7 @@
                                 </ul>
                             </div>
                              <div>
-                                <h4 class="font-bold text-lg text-white">Outlook</h4>
+                                <h4 class="font-bold text-lg">Outlook</h4>
                                  <ul class="list-disc list-inside ml-2 mt-1 space-y-1 text-sm">
                                     <li>Price: $0.8 / 1 account</li>
                                     <li>Bulk quantity available</li>
@@ -220,11 +315,11 @@
                 <!-- Telegram Product Card -->
                 <div class="card p-6">
                     <div class="product-header cursor-pointer flex justify-between items-center">
-                        <h3 class="text-2xl font-bold text-blue-400">Telegram Products</h3>
+                        <h3 class="text-2xl font-bold text-blue-500">Telegram Products</h3>
                          <svg class="w-6 h-6 arrow-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                     </div>
                     <div class="details-list">
-                         <ul class="mt-4 pt-4 border-t border-slate-600 space-y-2 text-slate-300 list-disc list-inside">
+                         <ul class="mt-4 pt-4 space-y-2 list-disc list-inside">
                              <li>Ready Telegram Accounts</li>
                              <li>Numbers for Verification</li>
                              <li>Old/Aged Channels</li>
@@ -240,19 +335,19 @@
         <section id="pembayaran" class="py-16 md:py-24">
             <h2 class="section-title text-3xl font-bold mb-8">Payment Information</h2>
             <div class="card p-8 max-w-2xl mx-auto">
-                <p class="text-center text-slate-300 mb-6">Please use the addresses below for payment. Click to copy.</p>
+                <p class="text-center mb-6">Please use the addresses below for payment. Click to copy.</p>
                 <div class="space-y-4">
                     <div>
-                        <label class="block text-sm font-medium text-slate-400 mb-1">BEP20 (BSC)</label>
+                        <label class="block text-sm font-medium mb-1">BEP20 (BSC)</label>
                         <div class="flex">
-                            <input type="text" id="bep20" value="0xA4ab4aFAd3AEbF64530D79B5339c6Af8d051e812" class="w-full bg-slate-900 rounded-l-md px-3 py-2 border border-slate-600 focus:outline-none focus:ring-2 focus:ring-blue-500 truncate" readonly>
+                            <input type="text" id="bep20" value="0xA4ab4aFAd3AEbF64530D79B5339c6Af8d051e812" class="w-full rounded-l-md px-3 py-2 border focus:outline-none focus:ring-2 focus:ring-blue-500 truncate" readonly>
                             <button onclick="copyToClipboard('bep20', this)" class="btn-secondary px-4 py-2 rounded-r-md font-semibold">Copy</button>
                         </div>
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-slate-400 mb-1">UID Bitget</label>
+                        <label class="block text-sm font-medium mb-1">UID Bitget</label>
                         <div class="flex">
-                            <input type="text" id="bitget" value="5817284457" class="w-full bg-slate-900 rounded-l-md px-3 py-2 border border-slate-600 focus:outline-none focus:ring-2 focus:ring-blue-500" readonly>
+                            <input type="text" id="bitget" value="5817284457" class="w-full rounded-l-md px-3 py-2 border focus:outline-none focus:ring-2 focus:ring-blue-500" readonly>
                             <button onclick="copyToClipboard('bitget', this)" class="btn-secondary px-4 py-2 rounded-r-md font-semibold">Copy</button>
                         </div>
                     </div>
@@ -267,27 +362,27 @@
                 <div class="card p-6">
                     <p class="text-3xl mb-2">✔</p>
                     <h4 class="font-semibold">Trusted Suppliers</h4>
-                    <p class="text-sm text-slate-400">Worldwide</p>
+                    <p class="text-sm">Worldwide</p>
                 </div>
                 <div class="card p-6">
                     <p class="text-3xl mb-2">✔</p>
                     <h4 class="font-semibold">High Quality Data</h4>
-                    <p class="text-sm text-slate-400">Verified</p>
+                    <p class="text-sm">Verified</p>
                 </div>
                 <div class="card p-6">
                     <p class="text-3xl mb-2">✔</p>
                     <h4 class="font-semibold">Fast & Safe</h4>
-                    <p class="text-sm text-slate-400">Transactions</p>
+                    <p class="text-sm">Transactions</p>
                 </div>
                 <div class="card p-6">
                     <p class="text-3xl mb-2">✔</p>
                     <h4 class="font-semibold">Competitive Pricing</h4>
-                    <p class="text-sm text-slate-400">Best Value</p>
+                    <p class="text-sm">Best Value</p>
                 </div>
                  <div class="card p-6">
                     <p class="text-3xl mb-2">✔</p>
                     <h4 class="font-semibold">Professional Support</h4>
-                    <p class="text-sm text-slate-400">Ready to help</p>
+                    <p class="text-sm">Ready to help</p>
                 </div>
             </div>
         </section>
@@ -295,13 +390,52 @@
     </main>
     
     <!-- Footer -->
-    <footer class="border-t border-slate-700 bg-slate-900">
-        <div class="container mx-auto px-4 py-6 text-center text-slate-400">
+    <footer>
+        <div class="container mx-auto px-4 py-6 text-center">
             <p>&copy; 2024 Doztre.id. All rights reserved.</p>
         </div>
     </footer>
 
     <script>
+        // Theme toggle logic
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const darkIcon = document.getElementById('theme-toggle-dark-icon');
+        const lightIcon = document.getElementById('theme-toggle-light-icon');
+        const htmlElement = document.documentElement;
+
+        // Function to set theme
+        const setTheme = (theme) => {
+            if (theme === 'dark') {
+                htmlElement.classList.add('dark');
+                htmlElement.classList.remove('light');
+                darkIcon.classList.remove('hidden');
+                lightIcon.classList.add('hidden');
+                localStorage.setItem('theme', 'dark');
+            } else {
+                htmlElement.classList.remove('dark');
+                htmlElement.classList.add('light');
+                darkIcon.classList.add('hidden');
+                lightIcon.classList.remove('hidden');
+                localStorage.setItem('theme', 'light');
+            }
+        };
+        
+        // Check for saved theme in localStorage or use system preference
+        const savedTheme = localStorage.getItem('theme');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+        if (savedTheme) {
+            setTheme(savedTheme);
+        } else {
+            setTheme(prefersDark ? 'dark' : 'light');
+        }
+
+        themeToggleBtn.addEventListener('click', () => {
+            const currentTheme = localStorage.getItem('theme') || (prefersDark ? 'dark' : 'light');
+            setTheme(currentTheme === 'dark' ? 'light' : 'dark');
+        });
+
+
         // Mobile menu toggle
         const mobileMenuButton = document.getElementById('mobile-menu-button');
         const mobileMenu = document.getElementById('mobile-menu');
@@ -350,11 +484,10 @@
 
             } catch (err) {
                 console.error('Failed to copy text: ', err);
-                alert('Failed to copy. Please copy manually.');
+                // Avoid using alert()
             }
         }
     </script>
 
 </body>
 </html>
-
